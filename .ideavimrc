@@ -2,51 +2,119 @@
 "   the same commands as the original .vimrc configuration.
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
-
+ 
 " Source your .vimrc
-source ~/.vimrc
-
+"" source ~/.vimrc
+ 
+" set <leader> to <space>
+let mapleader = " "
+ 
 set number relativenumber
+ 
+set hlsearch
+set ignorecase                    " ignore case in search patterns
+set smartcase                     " no ignore case when pattern is uppercase
+set incsearch                     " show search results while typing
+"set wrapscan                      " searches wrap around the end of the file
 "" -- Suggested options --
 " Show a few lines of context around the cursor. Note that this makes the
 " text scroll if you mouse-click near the start or end of the window.
 set scrolloff=5
-
+ 
 " Do incremental searching.
 set incsearch
-
+ 
 " Don't use Ex mode, use Q for formatting.
 map Q gq
 imap jj <Esc>
-
-
+ 
+ 
 " --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
+ 
 " Highlight copied text
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
+Plug 'preservim/nerdtree'
+ 
+nmap <leader>e :NERDTreeToggle<CR>
+ 
 set sneak
 set quickscope
-
+ 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-
-
+ 
+ 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
 "map \r <Action>(ReformatCode)
-
+ 
 "" Map <leader>d to start debug
 "map <leader>d <Action>(Debug)
-
+ 
 "" Map \b to toggle the breakpoint on the current line
 "map \b <Action>(ToggleLineBreakpoint)
-
+ 
 "" next error
 nnoremap gn :action GotoNextError<CR>
 nnoremap gp :action GotoPreviousError<CR>
-nmap <c-l> <Action>(NextTab)
-nmap <c-h> <Action>(PreviousTab)
+ 
+"" move tabs
+""nmap <c-l> <Action>(NextTab)
+""nmap <c-h> <Action>(PreviousTab)
+nmap <tab> <Action>(NextTab)
+nmap <S-tab> <Action>(PreviousTab)
+
+ 
+ 
 nmap <%> <Action>(EditorMatchBrace)
+ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fix some vim annoyances
+ 
+" make Y behave like D and C, yanking till end of line
+map Y y$
+ 
+ 
+" clear search highlighting
+nnoremap <leader>/ :nohls<return><esc>
+ 
+ 
+nmap <C-p> <Action>(ParameterInfo)
+" imap <C-p> <C-o>:action ParameterInfo<CR>
+ 
+"" refactor rename
+nmap <leader>cr <Action>(RenameElement)
+nmap <leader>riv <Action>(IntroduceVariable)
+nmap <leader>rif <Action>(IntroduceFunction)
+vmap <leader>rif <Action>(IntroduceFunction)
+ 
+nmap <leader>f <Action>(ReformatCode)
+nmap <leader>ro <Action>(OptimizeImports)
+ 
+nmap <, <Action>(MoveElementLeft)
+nmap >. <Action>(MoveElementRight)
+ 
+nmap <leader>i <Action>(ShowIntentionActions)
+nmap <leader>t <Action>(RecentFiles)
+ 
+nmap gi <Action>(GotoImplementation)
+"" lets you select current file in file tree
+nmap gs <Action>(SelectIn)
+nmap <leader>go <Action>(OverrideMethods)
+ 
+vmap <leader>y "+y
+nmap <leader>p "+p
+ 
+"" search for script tag
+nmap <leader>js /<script<CR> :nohls<return><esc>
+nmap gjs /<script<CR> :nohls<return><esc>
+ 
+"" Run current file
+nmap <leader>ar <Action>(Run)
+nmap <leader>acr <Action>(RunContextGroup)
+
+"" Go to...
+nmap gf <Action>(GotoFile)
+nmap gt <Action>(ActivateTerminalToolWindow)
