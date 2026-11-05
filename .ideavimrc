@@ -59,6 +59,7 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 "" next error
 nnoremap gn :action GotoNextError<CR>
 nnoremap gp :action GotoPreviousError<CR>
+nmap <C-x> <Action>(ShowErrorDescription)
  
 "" move tabs
 ""nmap <c-l> <Action>(NextTab)
